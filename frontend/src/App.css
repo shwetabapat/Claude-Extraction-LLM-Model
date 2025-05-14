@@ -1,0 +1,410 @@
+:root {
+  --primary-color: #191c1f;
+  --primary-hover: #0666eb;
+  --secondary-color: #8b959e;
+  --success-color: #0cbe69;
+  --error-color: #ff4747;
+  --background-color: #ffffff;
+  --card-background: #f6f7f9;
+  --text-primary: #191c1f;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.App-header {
+  background-color: var(--background-color);
+  padding: 2rem 2rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.App-header h1 {
+  color: var(--primary-color);
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin-bottom: 1rem;
+}
+
+.App-header p {
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+main {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 2rem;
+  width: 100%;
+}
+
+.upload-section {
+  background-color: var(--card-background);
+  border-radius: 1.5rem;
+  padding: 3rem;
+  margin-bottom: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.upload-section:hover {
+  transform: translateY(-2px);
+}
+
+.dropzone {
+  border: 2px dashed var(--border-color);
+  border-radius: 1rem;
+  padding: 3rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: var(--background-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.dropzone::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(6, 102, 235, 0.1), rgba(12, 190, 105, 0.1));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.dropzone:hover::before {
+  opacity: 1;
+}
+
+.dropzone.active {
+  border-color: var(--primary-hover);
+  background-color: rgba(6, 102, 235, 0.05);
+}
+
+.dropzone p {
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+
+.file-list {
+  margin-top: 2rem;
+}
+
+.file-list h3 {
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.file-list ul {
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.file-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background-color: var(--background-color);
+  border-radius: 1rem;
+  margin-bottom: 0.75rem;
+  transition: all 0.2s ease;
+  border: 1px solid var(--border-color);
+}
+
+.file-list li:hover {
+  border-color: var(--primary-hover);
+  transform: translateX(4px);
+}
+
+.file-list li span {
+  font-weight: 500;
+}
+
+.file-list button.remove-button {
+  background-color: transparent;
+  color: var(--error-color);
+  border: 1px solid currentColor;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.file-list button.remove-button:hover {
+  background-color: var(--error-color);
+  color: white;
+}
+
+.analyze-button {
+  width: 100%;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.analyze-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, var(--primary-hover), var(--success-color));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.analyze-button:hover:not(:disabled)::after {
+  opacity: 1;
+}
+
+.analyze-button span {
+  position: relative;
+  z-index: 1;
+}
+
+.analyze-button:disabled {
+  background-color: var(--secondary-color);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.error-message {
+  background-color: #fef2f2;
+  color: var(--error-color);
+  padding: 1.25rem;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid #fee2e2;
+}
+
+.progress-section {
+  background-color: var(--card-background);
+  border-radius: 1.5rem;
+  padding: 3rem;
+  margin-bottom: 2rem;
+  animation: slideUp 0.5s ease-out;
+}
+
+.progress-section h3 {
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.progress-section ul {
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.progress-section li {
+  padding: 1rem 1.5rem;
+  background-color: var(--background-color);
+  border-radius: 1rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid var(--border-color);
+  font-weight: 500;
+}
+
+.progress-section li::before {
+  content: "→";
+  color: var(--primary-hover);
+  font-weight: bold;
+}
+
+.download-button {
+  background-color: var(--success-color);
+  color: white;
+  border: none;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.download-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, var(--success-color), #00d68f);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.download-button:hover::after {
+  opacity: 1;
+}
+
+.download-button span {
+  position: relative;
+  z-index: 1;
+}
+
+.analysis-section {
+  background-color: var(--card-background);
+  border-radius: 1.5rem;
+  padding: 3rem;
+  animation: slideUp 0.5s ease-out;
+}
+
+.analysis-section h3 {
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.analysis-content h4 {
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.analysis-content p {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.7;
+  font-size: 1.125rem;
+}
+
+.analysis-content ul {
+  list-style: none;
+}
+
+.analysis-content li {
+  padding: 1rem 1.5rem;
+  background-color: var(--background-color);
+  border-radius: 1rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid var(--border-color);
+  font-weight: 500;
+}
+
+.analysis-content li::before {
+  content: "•";
+  color: var(--primary-hover);
+  font-weight: bold;
+}
+
+.pages-info {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: var(--background-color);
+  border-radius: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .App-header h1 {
+    font-size: 2.5rem;
+  }
+
+  main {
+    padding: 0 1rem;
+    margin: 2rem auto;
+  }
+
+  .upload-section,
+  .progress-section,
+  .analysis-section {
+    padding: 2rem 1.5rem;
+  }
+}
+
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255,255,255,0.7);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+} 
