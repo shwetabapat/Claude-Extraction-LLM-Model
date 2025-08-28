@@ -128,7 +128,7 @@ async def analyze_documents(files: list[UploadFile] = File(...)):
 
 - `billOfLadingNumber`: The unique identifier for the bill of lading, often a combination of letters and numbers. Expected format: a string, e.g., `BL12345678`, `BOL-2023-001`.
 - `containerNumbers`: Shipping container/cntr identifier. 11 character string, with 4 alphabets + 7 characters. Always.
-- `shipmentDate`: The date the shipment was dispatched or departed. Expected format: a date in `YYYY-MM-DD` format, e.g., `2023-08-10`.
+- `ladingDateOrDispatchDate`: The ladingDateOrDispatchDate is the date the goods were loaded onto the vessel, prioritising labels like 'Shipped on Board Date' or 'SOB Date'. If an 'on board' date is not available, use the date the carrier took possession of the goods, such as 'Cargo Receipt Date'. As a final fallback, use the 'Pickup Date' if neither of the other two dates can be found. Expected format: a date in `YYYY-MM-DD` format, e.g., `2023-08-10`.
 - `dateIssued`: The date the document or bill of lading was issued. Expected format: a date in `YYYY-MM-DD` format, e.g., `2023-08-15`.
 - `vesselName`: The name of the vessel carrying the goods. Expected format: a string, e.g., `Evergreen`, `Maersk Alabama`.
 - `buyerName`: The name of the buyer or recipient of the shipment. Expected format: a string, e.g., `XYZ Corp.`, `Jane Doe Enterprises`.
@@ -143,7 +143,7 @@ Please scan the document and fill in each of the fields accordingly. If no infor
 {
 'billOfLadingNumber': null,
 'containerNumbers': [],
-'shipmentDate': null,
+'ladingDateOrDispatchDate': null,
 'dateIssued': null,
 'vesselName': null,
 'buyerName': null,
@@ -169,7 +169,7 @@ Please scan the document and fill in each of the fields accordingly. If no infor
 
         # Send the request to Claude
         response = client.messages.create(
-            model="claude-3-sonnet-20240229",
+            model="claude-3-7-sonnet-20250219",
             max_tokens=4096,
             messages=claude_request
         )
